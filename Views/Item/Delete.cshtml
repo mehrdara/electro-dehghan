@@ -1,0 +1,41 @@
+@model Item
+<form method="post" asp-action="DeletePOST" enctype="multipart/form-data">
+
+  <input asp-for="Id" hidden />
+  <div class="text-primary"> @Model.Name حذف </div>
+  <hr />
+  <div class="mb-3 w-50">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control">
+
+  </div>
+  <div class="mb-3 w-50">
+    <label asp-for="Description"></label>
+    <textarea asp-for="Description" disabled class="form-control"></textarea>
+
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="Price"></label>
+    <input style="width: 20%;" asp-for="Price" disabled class="form-control">
+  </div>
+  <div class="mb-3">
+    <label asp-for="Quantity"></label>
+    <input asp-for="Quantity" disabled class="form-control">
+  </div>
+  <div style="width: 200px; height:200px;" class="mb-3">
+    <img src="~/Images/@Model.ImageName" class="card-img-top" alt="...">
+  </div>
+
+
+
+  <button type="submit" class="btn btn-danger" style="width: 150px;">حذف </button>
+  <a asp-controller="Item" asp-action="Index" class="btn btn-primary" style="width: 150px">
+    Back to list
+  </a>
+</form>
+@section Scripts{
+  @{
+    <partial name="_ValidationScriptsPartial" />
+  }
+}

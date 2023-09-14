@@ -1,0 +1,56 @@
+@model IEnumerable<ProductItem>
+@if (ViewBag.total == 0)
+{
+    <h5 class="text-center rtl"‌> ! سبد شما خالی است</h5>
+}
+
+<table class="table  ">
+    <thead >
+        <tr >
+            <th>@Html.DisplayNameFor(model => model.Product.ImageName)</th>
+            <th>@Html.DisplayNameFor(model => model.Product.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Product.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+            <th>Sub-Total</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            <div class="bahman">
+        @foreach (var cart in Model)
+        {
+                        <tr>
+                <td>
+                    <img src="~/Images/@cart.Product.ImageName" style="object-fit:cover;" height="100px"/>
+                </td>
+                <td>@cart.Product.Name</td>
+                <td>@cart.Product.Price</td>
+                <td>@cart.SubTotal</td>
+                <td>@cart.Quantity</td>
+                <td>
+                </td>
+                                   <td>
+                        <a class="btn btn-danger" asp-controller="Card" asp-action="Minus"
+                            asp-route-id="@cart.Product.Id">-</a>
+                        <a class="btn btn-primary" asp-controller="Card" asp-action="Add"
+                            asp-route-id="@cart.Product.Id">+</a>
+
+
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Card" asp-action="Remove"
+                            asp-route-id="@cart.Product.Id">حذف
+                        </a>
+
+                    </td>
+            </tr>
+        }
+            </div>
+        <tr>
+            <td colspan="5" style="text-align:right">
+                Total: @ViewBag.total
+            </td>
+        </tr>
+    </tbody>
+</table>

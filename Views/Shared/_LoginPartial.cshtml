@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewBag.Title = "Title";
+}
+<div class="d-flex">
+    @if (SignInManager.IsSignedIn(User))
+    {
+
+        <div class="nav-item">
+            <form class="form inline">
+
+                <a asp-area="" asp-controller="Item" asp-action="Index" class="btn btn btn-link fw-bold"
+                    class="nav-link">پنل مدیریت </a>
+            </form>
+        </div>
+        <div class="nav-item">
+            <form class="form inline">
+                <a class="btn btn btn-link fw-bold" class="nav-link" href="#">@UserManager.GetUserName(User)</a>
+            </form>
+        </div>
+        <div class="nav-item">
+            <form id="logoutForm" method="post" class="form inline" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn btn-link">Logout</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div>
+            <a class=" me-sm-2" asp-controller="Account" asp-action="Register">Register</a>
+        </div>
+        <div>
+            <a class=" me-sm-2" asp-controller="Account" asp-action="Login">Login</a>
+        </div>
+
+    }
+
+</div>

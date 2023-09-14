@@ -1,0 +1,44 @@
+@model LoginViewModel
+@if (ViewData["ReturnUrl"] != null)
+{
+  <h4 class="text-info text-center">برای دسترسی به این بخش ابتدا باید وارد شوید </h4>
+}
+else
+{
+  <h4 class="text-info text-center">ورود </h4>
+
+}
+
+
+
+
+<div class="mb-4 container">
+  <div class="d-flex  justify-content-center align-items-center">
+    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post"
+      role="form">
+      <div class="mb-3">
+        <label asp-for="Email" class="form-label text-right" for="formBasicEmail">نام کاربری</label>
+        <input asp-for="Email" class="form-control" placeholder="Enter email" type="email" id="formBasicEmail"
+          class="form-control">
+        <span asp-validation-for="Email" class="text-danger"></span>
+      </div>
+      <div class="mb-3">
+        <label label asp-for="Password" class="form-label text-right" for="formBasicPassword">رمز عبور</label>
+        <input asp-for="Password" placeholder="Password" type="password" id="formBasicPassword" class="form-control">
+        <span asp-validation-for="Password" class="text-danger"></span>
+      </div>
+      <div class="mb-3">
+        <div class="form-check">
+          <label asp-for="RememberMe" for="formBasicCheckbox" class="form-check-label">
+            <input asp-for="RememberMe" type="checkbox" id="formBasicCheckbox" class="form-check-input">
+            @Html.DisplayNameFor(m=>m.RememberMe)
+
+          </label>
+        </div><button type="submit" class="btn btn-primary">Submit</button>
+        <p>
+          <a asp-action="Register">Register</a>
+          <a asp-action="ForgetPassword">Forget Password ?</a>
+        </p>
+    </form>
+  </div>
+</div>

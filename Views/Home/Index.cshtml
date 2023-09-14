@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ProductItem>
+@{
+    ViewData["Title"] = "محصولات ";
+}
+<div class="  container p-3">
+    <h1 class="text-primary text-center"> لیست محصولات</h1>
+</div>
+<div class="mb-4 container">
+    <div class="g-3 row row-cols-lg-4 row-cols-md-2 row-cols-1">
+        @foreach (var obj in Model)
+        {
+            <div class="col ">
+                <div class="h-100 card item d-flex ">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center">
+                            <img src="~/Images/@obj.Product.ImageName " style="object-fit:cover;" height="200px"
+                                class="card-img-top " />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column card-body">
+                        <div class="d-flex justify-content-between mb-4 card-title h5">
+                            <h6 class="text-right text-muted">@obj.Product.Price</h6>
+                            <h5 class=" text-right">@obj.Product.Name</h5>
+                            <a href="#">جزییات</a>
+                        </div>
+                        <div class="mt-auto">
+                            @if (@obj.Quantity == 0)
+                            {
+                                <a asp-controller="Home" asp-action="Buy" asp-route-id="@obj.Product.Id"
+                                    class="add-btn w-100 btn btn-success mb-3">
+                                    افزودن به سبد خرید
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                                    </svg>
+                                </a>
+                            }
+                            @if (obj.Quantity > 0)
+                            {
+                                <div class="d-flex flex-column  cart-container" style="gap: 0.5rem;">
+                                    <div class="d-flex align-items-baseline justify-content-center " style="gap: 0.5rem;">
+                                        <a asp-controller="Home" asp-action="Minus" asp-route-id="@obj.Product.Id"
+                                            class=" bg-primary  cart-action minus-btn btn btn-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+                                            </svg>
+                                        </a>
+                                        <h5 class="text-center ">@obj.Quantity</h5>
+                                        <a asp-controller="Home" asp-action="Add" asp-route-id="@obj.Product.Id"
+                                            class=" bg-primary  cart-action plus-btn btn btn-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <a asp-controller="Home" asp-action="Remove" asp-route-id="@obj.Product.Id"
+                                        class=" remove-btn bg-danger btn btn-primary">
+                                        حذف از سبد خرید
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var scrollpos = localStorage.getItem("scrollpos");
+        if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+
+    window.onscroll = function (e) {
+        localStorage.setItem("scrollpos", window.scrollY);
+    };
+</script>

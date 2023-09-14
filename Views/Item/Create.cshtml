@@ -1,0 +1,45 @@
+@model Item
+<form method="post" enctype="multipart/form-data">
+  <div class="border p-3 ">
+    <div class="text-primary">افرودن محصول جدید</div>
+    <hr />
+  </div>
+  <div asp-validation-summary="All"></div>
+  <div class="mb-3">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control">
+    <span asp-validation-for="Name" class="text-danger"></span>
+
+  </div>
+  <div class="mb-3">
+    <label asp-for="Description"></label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="Price"></label>
+    <input asp-for="Price" class="form-control">
+    <span asp-validation-for="Price" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Quantity"></label>
+    <input asp-for="Quantity" class="form-control">
+    <span asp-validation-for="Quantity" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="ImageFile"></label>
+    <input asp-for="ImageFile" accept="image/*" class="form-control">
+    <span asp-validation-for="ImageFile" class="text-danger"></span>
+  </div>
+
+  <button type="submit" class="btn btn-primary" style="width: 150px;">Create</button>
+  <a asp-controller="Item" asp-action="Create" class="btn btn-primary" style="width: 150px">
+    Back to list
+  </a>
+</form>
+@section Scripts{
+  @{
+    <partial name="_ValidationScriptsPartial" />
+  }
+}
