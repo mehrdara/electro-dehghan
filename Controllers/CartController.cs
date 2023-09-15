@@ -6,11 +6,11 @@ using identityMVC.Data;
 
 namespace identityMVC.Controllers;
 
-public class CardController : Controller
+public class CartController : Controller
 {
     private readonly AppDbContext _db;
 
-    public CardController(AppDbContext db)
+    public CartController(AppDbContext db)
     {
         _db = db;
     }

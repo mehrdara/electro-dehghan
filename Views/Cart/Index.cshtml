@@ -1,0 +1,66 @@
+@model IEnumerable<ProductItem>
+@if (ViewBag.total == 0)
+{
+    <h3 class="text-center fw-bold rtl"‌> ! سبد شما خالی است</h3>
+    <div class="d-flex justify-content-center ">   
+         <img src="~/Images/static/empty_cart.webp" height="400px" width="400px"/>
+    </div>
+}
+else{
+    <h3 class="text-center rtl mb-5">سبد خرید شما</h3>
+
+<table class="table table-bordered">
+    <thead >
+        <tr class="table-success">
+            <th class="text-center">تصویر</th>
+            <th class="text-center">نام محصول</th>
+            <th class="text-center">تعداد</th>
+            <th class="text-center">فی</th>
+            <th class="text-center"  >قیمت</th>
+            <th class="text-center" >حذف از سبد</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+            <div >
+        @foreach (var cart in Model)
+        {
+                        <tr class="table-active" >
+                <td class="text-center align-middle">
+                    <img src="~/Images/@cart.Product.ImageName" style="object-fit:cover;" height="100px"/>
+                </td>
+                <td class="text-center align-middle">@cart.Product.Name</td>
+                                   <td class="text-center align-middle">
+                        <a class="btn btn-danger" asp-controller="Cart" asp-action="Minus"
+                            asp-route-id="@cart.Product.Id">-</a>
+                                            @cart.Quantity
+                        <a class="btn btn-primary" asp-controller="Cart" asp-action="Add"
+                            asp-route-id="@cart.Product.Id">+</a>
+                    </td>
+                <td class="text-center align-middle">@cart.Product.Price</td>
+                <td class="text-center align-middle">@cart.SubTotal</td>
+                    <td class="text-center align-middle">
+                        <a class="btn btn-danger" asp-controller="Cart" asp-action="Remove"
+                            asp-route-id="@cart.Product.Id">حذف
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
+                                        </svg>
+                        </a>
+
+                    </td>
+            </tr>
+        }
+            </div>
+        <tr>
+            <td colspan="5" style="text-align:right">
+                 قابل پرداخت: @ViewBag.total
+            </td>
+            <td class="text-center align-middle ">
+                 <a class="btn btn-success">تکمیل سفارش</a>
+                 </td>
+        </tr>
+    </tbody>
+</table>
+}
