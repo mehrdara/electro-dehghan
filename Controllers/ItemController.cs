@@ -38,18 +38,22 @@ namespace IdentityMVC.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                string extension = Path.GetExtension(obj.ImageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                obj.ImageName = fileName;
-                string path = Path.Combine(wwwRootPath + "/Images/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                if (obj.ImageFile != null)
                 {
-                    obj.ImageFile.CopyTo(fileStream);
+                    string fileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName); string extension = Path.GetExtension(obj.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    obj.ImageName = fileName;
+                    string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        obj.ImageFile.CopyTo(fileStream);
+                    }
+                    _db.Items?.AddAsync(obj);
+                    await _db.SaveChangesAsync();
+                    TempData["success"] = "محصول با موفقیت اضافه شد !‌";
                 }
-                _db.Items?.AddAsync(obj);
-                await _db.SaveChangesAsync();
-                TempData["success"] = "محصول با موفقیت اضافه شد !‌";
+
+
 
                 return RedirectToAction("Index");
             }
@@ -76,12 +80,16 @@ namespace IdentityMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            Item temp = await _db.Items.FindAsync(id);
-            _db.Items.Remove(temp);
-            await _db.SaveChangesAsync();
-            TempData["success"] = "محصول با موفقیت حذف شد !‌";
+            Item? temp = await _db.Items.FindAsync(id);
+            if (temp != null)
+            {
+                _db.Items.Remove(temp);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "محصول با موفقیت حذف شد !‌";
 
+            }
             return RedirectToAction("Index");
+
         }
 
         [HttpPost]
@@ -103,16 +111,18 @@ namespace IdentityMVC.Controllers
                     {
                         obj.ImageFile.CopyTo(fileStream);
                     }
-                    string name;
                     if (TempData.ContainsKey("image"))
+
                     {
+                        string? name = TempData["image"]?.ToString();
 
-                        name = TempData["image"].ToString();
-
-                        var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "Images", name);
-                        if (System.IO.File.Exists(imagePath))
+                        if (name != null)
                         {
-                            System.IO.File.Delete(imagePath);
+                            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "Images", name);
+                            if (System.IO.File.Exists(imagePath))
+                            {
+                                System.IO.File.Delete(imagePath);
+                            }
                         }
                     }
                 }

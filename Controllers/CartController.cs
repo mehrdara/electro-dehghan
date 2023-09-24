@@ -16,7 +16,6 @@ public class CartController : Controller
     }
     public IActionResult Index()
     {
-
         var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
         if (cart != null)
         {
@@ -38,6 +37,7 @@ public class CartController : Controller
         int index = cart.FindIndex(w => w.Product.Id == id);
         cart[index].Quantity++;
 
+
         HttpContext.Session.Set<List<ProductItem>>("cart", cart);
         return RedirectToAction("Index");
     }
@@ -48,13 +48,13 @@ public class CartController : Controller
 
         int index = cart.FindIndex(w => w.Product.Id == id);
 
-        if (cart[index].Quantity == 1) //last item of a product
+        if (cart[index].Quantity == 1)
         {
-            cart.RemoveAt(index); //remove it
+            cart.RemoveAt(index);
         }
         else
         {
-            cart[index].Quantity--; //reduce by 1
+            cart[index].Quantity--;
         }
 
 
@@ -67,10 +67,17 @@ public class CartController : Controller
         var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
 
         int index = cart.FindIndex(w => w.Product.Id == id);
+
         cart.RemoveAt(index);
 
         HttpContext.Session.Set<List<ProductItem>>("cart", cart);
 
         return RedirectToAction("Index");
     }
+    public IActionResult Submit()
+    {
+
+        return RedirectToAction("Index", "Order");
+    }
+
 }

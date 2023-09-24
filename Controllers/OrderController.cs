@@ -1,44 +1,51 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using identityMVC.Models;
-using Microsoft.AspNetCore.Authorization;
-using identityMVC.Data;
-using OnlineShop.Models;
+// using System.Diagnostics;
+// using Microsoft.AspNetCore.Mvc;
+// using identityMVC.Models;
+// using Microsoft.AspNetCore.Authorization;
+// using identityMVC.Data;
 
-namespace identityMVC.Controllers
-{
+// namespace identityMVC.Controllers
+// {
 
-    public class OrderController : Controller
-    {
-        private readonly AppDbContext _db;
+//     public class OrderController : Controller
+//     {
+//         private readonly AppDbContext _db;
 
-        public OrderController(AppDbContext db)
-        {
-            _db = db;
-        }
-        public IActionResult Checkout()
-        {
-            return View();
-        }
+//         public OrderController(AppDbContext db)
+//         {
+//             _db = db;
+//         }
+//         public IActionResult Checkout()
+//         {
+//             return View();
+//         }
+//         public async Task<IActionResult> Create(Order order)
+//         {
+//             if (ModelState.IsValid)
+//             {
 
-        //POST Checkout action method
+//                 _db.Orders?.AddAsync(order);
+//                 await _db.SaveChangesAsync();
+//                 TempData["success"] = "سفارش شما  با موفقیت ثبت شد !‌";
+//                 return RedirectToAction("Index");
+//             }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+//             return View(order);
+//         }
 
-        public async Task<IActionResult> Checkout(Order Order)
-        {
-            List<ProductItem> products = HttpContext.Session.Get<List<ProductItem>>("cart");
-            if (products != null)
-            {
-                foreach (var product in products)
-                {
-                    Order.Products.Add(product.Product);
-                }
-            }
+//         public async Task<IActionResult> Index()
+//         {
+//             // Order Order = new Order();
+//             // List<ProductItem> products = HttpContext.Session.Get<List<ProductItem>>("cart");
+//             // // if (products != null)
+//             // // {
+//             // //     foreach (var product in products)
+//             // //     {
+//             // //         Order.Products.Add(product.Product);
+//             // //     }
+//             // // }
 
-            HttpContext.Session.Set("products", new List<Item>());
-            return View();
-        }
-    }
-}
+//             return View();
+//         }
+//     }
+// }

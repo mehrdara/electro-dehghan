@@ -1,26 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace OnlineShop.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+
+namespace identityMVC.Models
 {
     public class Order
-
     {
-        public Order()
-        {
-            Products = new List<Item>();
-        }
         [Key]
         public int Id { get; set; }
-        [Display(Name = "لیست محصولات")]
-        [Required(ErrorMessage = "لیست محصولات نمیتواند خالی باشد ")]
-        public ProductItem PorductItem { get; set; }
         [Required(ErrorMessage = "لطفا نام و نام خانوادگی خود را وارد کنید")]
+
+        [DisplayName("نام و نام خانوادگی")]
         public string Name { get; set; }
-        public virtual List<Item> Products { get; set; }
+        [DisplayName("شماره تلفن ")]
+        [Phone]
+
+        [Required(ErrorMessage = "لطفا شماره تلفن خود را وارد کنید")]
+        public int PhoneNumber { get; set; }
+        [Required(ErrorMessage = "لطفا ایمیل  خود را وارد کنید")]
+        [EmailAddress]
+        public string Email { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
 
 
     }
