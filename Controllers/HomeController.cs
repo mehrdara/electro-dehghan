@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using identityMVC.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
 using identityMVC.Data;
 namespace identityMVC.Controllers;
 
@@ -61,15 +62,19 @@ public class HomeController : Controller
         HttpContext.Session.Set<List<ProductItem>>("cart", cart);
         return RedirectToAction("Index", new { quantity = ViewBag.Quantity });
     }
-    public IActionResult Remove(int id)
+    public async Task<IActionResult> Remove(int id)
     {
-        var item = _db.Items.Find(id);
+        var item = await _db.Items.FindAsync(id);
         if (item != null)
         {
-            var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
+            List<ProductItem> cart = HttpContext.Session.Get<List<ProductItem>>("cart");
             int index = cart.FindIndex(w => w.Product.Id == id);
-            cart.RemoveAt(index);
-            HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+            if (index >= 0)
+                cart.RemoveAt(index);
+
+            HttpContext.Session.Set("cart", cart);
+
+
         }
 
 
@@ -102,7 +107,7 @@ public class HomeController : Controller
                 cart.Add(new ProductItem { Product = item, Quantity = 1 });
             }
         }
-        HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+        HttpContext.Session.Set("cart", cart);
         return RedirectToAction("Index", new { quantity = ViewBag.Quantity });
     }
 
@@ -115,7 +120,7 @@ public class HomeController : Controller
         int index = cart.FindIndex(w => w.Product.Id == id);
         cart[index].Quantity++;
 
-        HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+        HttpContext.Session.Set("cart", cart);
         return RedirectToAction("Index");
 
     }

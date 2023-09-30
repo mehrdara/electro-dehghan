@@ -1,63 +1,62 @@
-@* @model Order
+@model IdentityMVC.ViewModels.OrderViewModel
 @{
-ViewData["Title"] = "تکمیل و ثبت سفارش ";
+    ViewData["Title"] = "تکمیل و ثبت سفارش ";
 }
 <h3 class="text-center fw-bold rtl">برای ثبت سفارش ابتدا فرم زیر را پر کنید</h3>
 <form asp-action="" method="post" enctype="multipart/form-data">
-<div class="p-4 rounded border row">
-<div asp-validation-summary="ModelOnly" class="text-danger">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
 
-</div>
-<div class="col-6">
-<div class="form-group row">
-<div class="col-4">
-<label asp-for="Name"></label>
-</div>
-<div class="col-8">
-<input type="hidden" asp-for="Id" />
-<input asp-for="Name" class="form-control" />
-<span asp-validation-for="Name" class="text-danger"></span>
-</div>
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.Name"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="Order.Id" />
+                    <input asp-for="Order.Name" class="form-control" />
+                    <span asp-validation-for="Order.Name" class="text-danger"></span>
+                </div>
 
-</div>
-<div class="form-group row">
-<div class="col-4">
-<label asp-for="PhoneNumber"></label>
-</div>
-<div class="col-8">
-<input asp-for="PhoneNumber" class="form-control" />
-<span asp-validation-for="PhoneNumber" class="text-danger"></span>
-</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Order.PhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Order.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<div class="col-6">
-<table class="table table-bordered">
-<thead>
-<tr>
-<th>Image</th>
-<th>Name</th>
-<th>Price</th>
-</tr>
-</thead>
-<tbody>
-@foreach (var item in Model.Products)
-{
-<tr>
-<td>@item.Name</td>
-<td>@item.Price</td>
-</tr>
-}
-</tbody>
-</table>
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductItems)
+                    {
+                        <tr>
+                            @item.Product.Name
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-<div class="form-group text-right">
-<input type="submit" value="Place Order" class="btn btn-success" />
-</div>
-</div>
+            <div class="form-group text-right">
+                <input type="submit" value="Place Order" class="btn btn-success" />
+            </div>
+        </div>
 
 
-</div>
-</form> *@
+    </div>
+</form>

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using identityMVC.Models;
 namespace identityMVC.Controllers

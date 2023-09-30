@@ -20,12 +20,15 @@ public class CartController : Controller
         if (cart != null)
         {
             ViewBag.total = cart.Sum(s => s.Quantity * s.Product.Price);
+            ViewBag.Quantity = cart.Select(i => i.Quantity).Aggregate(0, (acc, x) => acc + x);
         }
         else
         {
             cart = new List<ProductItem>();
             ViewBag.total = 0;
+            ViewBag.Quantity = 0;
         }
+
 
         return View(cart);
     }

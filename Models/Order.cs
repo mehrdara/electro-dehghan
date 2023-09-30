@@ -1,10 +1,5 @@
-
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-
-
 namespace identityMVC.Models
 {
     public class Order
@@ -12,17 +7,15 @@ namespace identityMVC.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "لطفا نام و نام خانوادگی خود را وارد کنید")]
-
         [DisplayName("نام و نام خانوادگی")]
-        public string Name { get; set; }
+        public string Name { get; set; } = "نام و نام خانوادگی";
         [DisplayName("شماره تلفن ")]
         [Phone]
-
         [Required(ErrorMessage = "لطفا شماره تلفن خود را وارد کنید")]
         public int PhoneNumber { get; set; }
         [Required(ErrorMessage = "لطفا ایمیل  خود را وارد کنید")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = "example@example.com";
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
 

@@ -9,11 +9,11 @@ public class Item
     [MaxLength(20)]
     [DisplayName("نام محصول")]
     [Required(ErrorMessage = "لطفا نام محصول را وارد کنید")]
-    public string Name { get; set; }
+    public string Name { get; set; } = "نام محصول";
     [Required(ErrorMessage = "لطفا توضیحات محصول را وارد کنید")]
     [DisplayName("توضیحات")]
 
-    public string Description { get; set; }
+    public string Description { get; set; } = "توضیحات";
     [Required]
     [DisplayName("قیمت")]
 

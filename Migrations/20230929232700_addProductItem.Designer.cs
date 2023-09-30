@@ -12,8 +12,8 @@ using identityMVC.Data;
 namespace identityMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230923201423_addOrderDetails")]
-    partial class addOrderDetails
+    [Migration("20230929232700_addProductItem")]
+    partial class addProductItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -287,7 +287,7 @@ namespace identityMVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.OrderDetail", b =>
+            modelBuilder.Entity("ProductItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,13 +301,16 @@ namespace identityMVC.Migrations
                     b.Property<int>("PorductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("PorductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("ProductItems");
                 });
 
             modelBuilder.Entity("identityMVC.Models.ApplicationUser", b =>
@@ -372,7 +375,7 @@ namespace identityMVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.OrderDetail", b =>
+            modelBuilder.Entity("ProductItem", b =>
                 {
                     b.HasOne("identityMVC.Models.Order", "Order")
                         .WithMany()

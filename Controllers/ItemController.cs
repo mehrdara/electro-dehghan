@@ -1,11 +1,6 @@
-using System.Net;
-using System.Data.Common;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using identityMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using identityMVC.Data;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 namespace IdentityMVC.Controllers
 {
