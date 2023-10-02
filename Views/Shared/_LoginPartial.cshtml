@@ -4,37 +4,53 @@
 @{
     ViewBag.Title = "Title";
 }
-<div class="d-flex">
-    @if (SignInManager.IsSignedIn(User))
-    {
 
-        <div class="nav-item">
-            <form class="form inline">
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="navbar-nav me-2">
 
-                <a asp-area="" asp-controller="Item" asp-action="Index" class="btn btn btn-link fw-bold"
-                    class="nav-link">پنل مدیریت </a>
+    <li class="nav-item">
+        <form class="form inline">
+            <a asp-controller="Item" asp-action="Index" class=" btn fw-bold nav-link">پنل
+                مدیریت
+                <i class="fa fa-tasks"></i>
+            </a>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form class="form inline">
+            <a class="btn  btn-link fw-bold nav-link" href="#">
+                @UserManager.GetUserName(User)
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+
+                </a>
             </form>
-        </div>
-        <div class="nav-item">
-            <form class="form inline">
-                <a class="btn btn btn-link fw-bold" class="nav-link" href="#">@UserManager.GetUserName(User)</a>
-            </form>
-        </div>
-        <div class="nav-item">
+        </li>
+        <li class="nav-item">
             <form id="logoutForm" method="post" class="form inline" asp-controller="Account" asp-action="Logout">
-                <button type="submit" class="btn btn btn-link">Logout</button>
+                <button type="submit" class="btn  btn-link fw-bold nav-link">
+                    <i class="fa fa-sign-out"></i>
+                    Logout
+
+                </button>
             </form>
-        </div>
-    }
-    else
-    {
-        <div>
-            <a class=" me-sm-2" asp-controller="Account" asp-action="Register">Register</a>
-        </div>
-        <div>
-            <a class=" me-sm-2" asp-controller="Account" asp-action="Login">Login</a>
-        </div>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-nav me-2">
+    <li class="nav-item">
+        <a asp-controller="Account" asp-action="Register" class="btn fw-bold nav-link">
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+            Register
 
-    }
-
-</div>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Account" asp-action="Login" class=" btn fw-bold nav-link">
+            <i class="fa fa-sign-in"></i>
+            Login</a>
+    </li>
+</ul>
+}

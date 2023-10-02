@@ -1,0 +1,22 @@
+@{
+    ViewBag.Title = "Title";
+}
+<a asp-controller="Cart" asp-action="Index" style="width: 3rem; height: 3rem; position:relative;"
+    class="rounded-circle btn btn-primary bg-success">
+    <i class="fa fa fa-shopping-cart"></i>
+    @if (ViewBag.Quantity != null)
+    {
+        <div id="items-in-cart" class='rounded-circle bg-danger d-flex justify-content-center align-items-center' style="
+                color:white;
+                width:1.5rem;
+                height:1.5rem;
+                bottom:0;
+                right:0;
+                position:absolute;
+                transform:translate(25%,25%);
+                        ">
+            @ViewBag.Quantity
+        </div>
+    }
+
+</a>

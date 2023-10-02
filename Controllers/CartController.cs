@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using identityMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using identityMVC.Data;
+using IdentityMVC.ViewModels;
 
 namespace identityMVC.Controllers;
 
@@ -25,62 +26,62 @@ public class CartController : Controller
         else
         {
             cart = new List<ProductItem>();
-            ViewBag.total = 0;
             ViewBag.Quantity = 0;
         }
-
-
-        return View(cart);
+        var Order = new OrderViewModel() { ProductItems = cart, Order = new Order() };
+        return View(Order);
     }
     public IActionResult Add(int id)
     {
-        var item = _db.Items.Find(id);
+        var item = _db?.Items?.Find(id);
         var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
 
         int index = cart.FindIndex(w => w.Product.Id == id);
         cart[index].Quantity++;
 
 
-        HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+        HttpContext.Session.Set("cart", cart);
         return RedirectToAction("Index");
     }
     public IActionResult Minus(int id)
     {
-        var item = _db.Items.Find(id);
-        var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
-
-        int index = cart.FindIndex(w => w.Product.Id == id);
-
-        if (cart[index].Quantity == 1)
+        var item = _db?.Items?.Find(id);
+        if (item != null)
         {
-            cart.RemoveAt(index);
-        }
-        else
-        {
-            cart[index].Quantity--;
-        }
+            var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
+
+            int index = cart.FindIndex(w => w.Product.Id == id);
+
+            if (cart[index].Quantity == 1)
+            {
+                cart.RemoveAt(index);
+            }
+            else
+            {
+                cart[index].Quantity--;
+            }
 
 
-        HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+            HttpContext.Session.Set("cart", cart);
+        }
         return RedirectToAction("Index");
     }
     public IActionResult Remove(int id)
     {
-        var item = _db.Items.Find(id);
-        var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
+        var item = _db?.Items?.Find(id);
+        if (item != null)
+        {
+            var cart = HttpContext.Session.Get<List<ProductItem>>("cart");
 
-        int index = cart.FindIndex(w => w.Product.Id == id);
+            int index = cart.FindIndex(w => w.Product.Id == id);
 
-        cart.RemoveAt(index);
+            cart.RemoveAt(index);
 
-        HttpContext.Session.Set<List<ProductItem>>("cart", cart);
+            HttpContext.Session.Set("cart", cart);
+        }
 
         return RedirectToAction("Index");
     }
-    public IActionResult Submit()
-    {
 
-        return RedirectToAction("Index", "Order");
-    }
 
 }

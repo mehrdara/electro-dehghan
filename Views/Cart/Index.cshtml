@@ -1,8 +1,8 @@
-@model IEnumerable<ProductItem>
+@model IdentityMVC.ViewModels.OrderViewModel
     @{
     ViewData["Title"] = "سبد خرید |";
 }
-@if (ViewBag.total == 0)
+@if (ViewBag.Quantity == 0)
 {
     <h3 class="text-center fw-bold rtl"‌> ! سبد شما خالی است</h3>
     <div class="d-flex justify-content-center ">   
@@ -25,25 +25,25 @@ else{
     </thead>
     <tbody>
             <div >
-        @foreach (var cart in Model)
+        @foreach (var product in Model.ProductItems)
         {
                         <tr class="table-active" >
                 <td class="text-center align-middle">
-                    <img src="~/Images/@cart.Product.ImageName" style="object-fit:cover;" height="100px"/>
+                    <img src="~/Images/@product.Product.ImageName" style="object-fit:cover;" height="100px"/>
                 </td>
-                <td class="text-center align-middle">@cart.Product.Name</td>
+                <td class="text-center align-middle">@product.Product.Name</td>
                                    <td class="text-center align-middle">
                         <a class="btn btn-danger" asp-controller="Cart" asp-action="Minus"
-                            asp-route-id="@cart.Product.Id">-</a>
-                                            @cart.Quantity
+                            asp-route-id="@product.Product.Id">-</a>
+                                            @product.Quantity
                         <a class="btn btn-primary" asp-controller="Cart" asp-action="Add"
-                            asp-route-id="@cart.Product.Id">+</a>
+                            asp-route-id="@product.Product.Id">+</a>
                     </td>
-                <td class="text-center align-middle">@cart.Product.Price</td>
-                <td class="text-center align-middle">@cart.SubTotal</td>
+                <td class="text-center align-middle">@product.Product.Price</td>
+                <td class="text-center align-middle">@product.SubTotal</td>
                     <td class="text-center align-middle">
                         <a class="btn btn-danger" asp-controller="Cart" asp-action="Remove"
-                            asp-route-id="@cart.Product.Id">حذف
+                            asp-route-id="@product.Product.Id">حذف
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
                                             <path
@@ -64,4 +64,42 @@ else{
         </tr>
     </tbody>
 </table>
+<h3 class="text-center fw-bold rtl">برای ثبت سفارش ابتدا فرم زیر را پر کنید</h3>
+<form asp-action="" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
+    <div class="col-6">
+        <div class="form-group ">
+            <div class="col-md-10">
+                <input type="hidden" asp-for="Order.Id" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order.Name" class="col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Order.Name" class="form-control" />
+                <span asp-validation-for="Order.Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order.Email" class="col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Order.Email" class="form-control" />
+                <span asp-validation-for="Order.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order.PhoneNumber" class="col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Order.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 }

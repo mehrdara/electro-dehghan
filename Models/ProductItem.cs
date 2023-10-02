@@ -10,6 +10,8 @@ public class ProductItem
 {
     [Key]
     public int Id { get; set; }
+
+
     public int Quantity { get; set; }
     [Display(Name = "Order")]
     public int OrderId { get; set; }

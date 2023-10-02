@@ -8,5 +8,6 @@ namespace IdentityMVC.ViewModels
         public IEnumerable<ProductItem> ProductItems { get; set; }
         public Order Order { get; set; }
 
+
     }
 }
