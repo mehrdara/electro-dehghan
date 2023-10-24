@@ -8,4 +8,5 @@ builder.services.adddbcontext<dbcontext>
 using global 
 jsongignore
 dotnet ef 
-dotnet ef dbcontext scaffold "connection strign " Microsoft.entityframework.sqserver  -outputdir models
+dotnet ef dbcontext scaffold "connection strign " Microsoft.entityframework.sqserver  -outputdir -o models --force 
+
